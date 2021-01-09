@@ -47,7 +47,7 @@ func (p *Post) SavePost(db *gorm.DB) (*Post, error) {
 		return &Post{}, err
 	}
 	if p.ID != 0 {
-		err = db.Debug().First(&User{}, p.AuthorID).Error
+		err = db.Debug().Model(&User{}).Where("id = ?", p.AuthorID).Take(&p.Author).Error
 		if err != nil {
 			return &Post{}, err
 		}
@@ -89,16 +89,16 @@ func (p *Post) FindPostByID(db *gorm.DB, pid uint64) (*Post, error) {
 func (p *Post) UpdateAPost(db *gorm.DB, pid uint64) (*Post, error) {
 	err := db.Debug().Model(p).Where("id = ?", pid).Updates(
 		map[string]interface{}{
-			"title":     p.Title,
-			"content":   p.Content,
-			"update_at": time.Now(),
+			"title":      p.Title,
+			"content":    p.Content,
+			"updated_at": time.Now(),
 		},
 	).Error
 	if err != nil {
 		return &Post{}, err
 	}
 	if p.ID != 0 {
-		err = db.Debug().First(&User{}, p.AuthorID).Error
+		err = db.Debug().Model(&User{}).Where("id = ?", p.AuthorID).Take(&p.Author).Error
 		if err != nil {
 			return &Post{}, err
 		}

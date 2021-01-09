@@ -3,14 +3,13 @@ package auth
 import (
 	"encoding/json"
 	"fmt"
+	jwt "github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
 	"time"
-
-	jwt "github.com/dgrijalva/jwt-go"
 )
 
 func CreateToken(user_id uint32) (string, error) {
@@ -49,7 +48,7 @@ func ExtractToken(r *http.Request) string {
 	}
 	bearerToken := r.Header.Get("Authorization")
 	if len(strings.Split(bearerToken, " ")) == 2 {
-		return strings.Split(bearerToken, "")[1]
+		return strings.Split(bearerToken, " ")[1]
 	}
 	return ""
 }
@@ -62,7 +61,7 @@ func ExtractTokenID(r *http.Request) (uint32, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 			}
-			return []byte(os.Getenv("API_SECRTE")), nil
+			return []byte(os.Getenv("API_SECRET")), nil
 		})
 	if err != nil {
 		return 0, err
