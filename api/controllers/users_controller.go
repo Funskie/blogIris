@@ -148,11 +148,11 @@ func (server *Server) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = user.DeleteAUser(server.DB, uint32(uid))
+	isDelete, err := user.DeleteAUser(server.DB, uint32(uid))
 	if err != nil {
 		responses.Error(w, http.StatusInternalServerError, err)
 		return
 	}
 	w.Header().Set("Entity", fmt.Sprintf("%d", uid))
-	responses.JSON(w, http.StatusOK, "")
+	responses.JSON(w, http.StatusOK, isDelete)
 }
