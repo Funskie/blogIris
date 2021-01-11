@@ -14,12 +14,12 @@ func TestFindAllUsers(t *testing.T) {
 
 	err := refreshUserTable()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error refreshing user table %v\n", err)
 	}
 
 	_, err = seedUsers()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error seeding user table %v\n", err)
 	}
 
 	usersFound, err := userInstance.FindAllUsers(server.DB)
@@ -35,7 +35,7 @@ func TestSaveUser(t *testing.T) {
 
 	err := refreshUserTable()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error refreshing user table %v\n", err)
 	}
 
 	newUser := models.User{
@@ -59,12 +59,12 @@ func TestGetUserByID(t *testing.T) {
 
 	err := refreshUserTable()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error refreshing user table %v\n", err)
 	}
 
 	user, err := seedOneUser()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error seeding user table %v\n", err)
 	}
 
 	foundUser, err := userInstance.FindUserByID(server.DB, user.ID)
@@ -78,16 +78,16 @@ func TestGetUserByID(t *testing.T) {
 	assert.Equal(t, foundUser.Nickname, user.Nickname)
 }
 
-func TestUpdatUser(t *testing.T) {
+func TestUpdateUser(t *testing.T) {
 
 	err := refreshUserTable()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error refreshing user table %v\n", err)
 	}
 
 	user, err := seedOneUser()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error seeding user table %v\n", err)
 	}
 
 	updateUser := models.User{
@@ -111,12 +111,12 @@ func TestDeleteUser(t *testing.T) {
 
 	err := refreshUserTable()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error refreshing user table %v\n", err)
 	}
 
 	user, err := seedOneUser()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error seeding user table %v\n", err)
 	}
 
 	isDelete, err := userInstance.DeleteAUser(server.DB, user.ID)

@@ -173,11 +173,11 @@ func (server *Server) DeletePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = postInDB.DeleteAPost(server.DB, pid, uid)
+	isDelete, err := postInDB.DeleteAPost(server.DB, pid, uid)
 	if err != nil {
 		responses.Error(w, http.StatusInternalServerError, err)
 		return
 	}
 	w.Header().Set("Entity", fmt.Sprintf("%d", pid))
-	responses.JSON(w, http.StatusNoContent, "")
+	responses.JSON(w, http.StatusNoContent, isDelete)
 }
