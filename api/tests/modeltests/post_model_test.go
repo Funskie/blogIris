@@ -111,10 +111,10 @@ func TestUpdatePost(t *testing.T) {
 		return
 	}
 
-	assert.Equal(t, postUpdate.ID, updatedPost.ID)
-	assert.Equal(t, postUpdate.Title, updatedPost.Title)
-	assert.Equal(t, postUpdate.Content, updatedPost.Content)
-	assert.Equal(t, postUpdate.AuthorID, updatedPost.AuthorID)
+	assert.Equal(t, updatedPost.ID, postUpdate.ID)
+	assert.Equal(t, updatedPost.Title, postUpdate.Title)
+	assert.Equal(t, updatedPost.Content, postUpdate.Content)
+	assert.Equal(t, updatedPost.AuthorID, postUpdate.AuthorID)
 }
 
 func TestDeletePost(t *testing.T) {
