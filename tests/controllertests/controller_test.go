@@ -1,4 +1,4 @@
-package modeltests
+package controllertests
 
 import (
 	"github.com/Funskie/blogIris/api/controllers"
@@ -18,7 +18,8 @@ var userInstance models.User
 var postInstance models.Post
 
 func TestMain(m *testing.M) {
-	err := godotenv.Load(os.ExpandEnv("../../../.env"))
+
+	err := godotenv.Load(os.ExpandEnv("../../.env"))
 	if err != nil {
 		log.Fatalf("Error getting env %v\n", err)
 	}
@@ -57,7 +58,6 @@ func Database() {
 }
 
 func refreshUserTable() error {
-
 	err := server.DB.DropTableIfExists(&models.User{}).Error
 	if err != nil {
 		return err
