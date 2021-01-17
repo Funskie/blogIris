@@ -128,7 +128,7 @@ func TestLogin(t *testing.T) {
 			if err != nil {
 				t.Errorf("this is the error convert to json: %v", err)
 			}
-			assert.Equal(t, responseMap["Error"], v.errorMessage)
+			assert.Equal(t, responseMap["error"], v.errorMessage)
 		}
 	}
 }
