@@ -371,12 +371,6 @@ func TestDeleteUser(t *testing.T) {
 	}{
 		{
 			id:           strconv.Itoa(int(authID)),
-			tokenGiven:   tokenString,
-			statusCode:   200,
-			errorMessage: "",
-		},
-		{
-			id:           strconv.Itoa(int(authID)),
 			tokenGiven:   "This is incorrect token",
 			statusCode:   401,
 			errorMessage: "Unauthorized",
@@ -398,6 +392,12 @@ func TestDeleteUser(t *testing.T) {
 			statusCode:   401,
 			errorMessage: "Unauthorized",
 		},
+		{
+			id:           strconv.Itoa(int(authID)),
+			tokenGiven:   tokenString,
+			statusCode:   204,
+			errorMessage: "",
+		},
 	}
 
 	for _, v := range samples {
@@ -414,7 +414,7 @@ func TestDeleteUser(t *testing.T) {
 		handler.ServeHTTP(rr, req)
 
 		assert.Equal(t, rr.Code, v.statusCode)
-		if v.statusCode == 200 {
+		if v.statusCode == 204 {
 			assert.Equal(t, rr.Body.String()[:1], "1")
 		}
 

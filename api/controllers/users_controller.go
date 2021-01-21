@@ -154,5 +154,5 @@ func (server *Server) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Entity", fmt.Sprintf("%d", uid))
-	responses.JSON(w, http.StatusOK, isDelete)
+	responses.JSON(w, http.StatusNoContent, isDelete)
 }
