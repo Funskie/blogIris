@@ -38,7 +38,7 @@ func TestCreatePost(t *testing.T) {
 		statusCode   int
 		title        string
 		content      string
-		author_id    uint32
+		authorID     uint32
 		tokenGiven   string
 		errorMessage string
 	}{
@@ -47,7 +47,7 @@ func TestCreatePost(t *testing.T) {
 			statusCode:   201,
 			title:        "Test create title",
 			content:      "Test create content",
-			author_id:    user.ID,
+			authorID:     user.ID,
 			tokenGiven:   tokenString,
 			errorMessage: "",
 		},
@@ -117,7 +117,7 @@ func TestCreatePost(t *testing.T) {
 		if v.statusCode == 201 {
 			assert.Equal(t, responseMap["title"], v.title)
 			assert.Equal(t, responseMap["content"], v.content)
-			assert.Equal(t, responseMap["author_id"], float64(v.author_id))
+			assert.Equal(t, responseMap["author_id"], float64(v.authorID))
 		}
 		if v.statusCode == 401 || v.statusCode == 422 || v.statusCode == 500 && v.errorMessage != "" {
 			assert.Equal(t, responseMap["error"], v.errorMessage)
@@ -173,7 +173,7 @@ func TestGetPostByID(t *testing.T) {
 		statusCode   int
 		title        string
 		content      string
-		author_id    uint32
+		authorID     uint32
 		errorMessage string
 	}{
 		{
@@ -181,7 +181,7 @@ func TestGetPostByID(t *testing.T) {
 			statusCode: 200,
 			title:      post.Title,
 			content:    post.Content,
-			author_id:  post.AuthorID,
+			authorID:   post.AuthorID,
 		},
 		{
 			id:         "unknown",
@@ -240,7 +240,7 @@ func TestUpdatePost(t *testing.T) {
 		statusCode   int
 		title        string
 		content      string
-		author_id    uint32
+		authorID     uint32
 		tokenGiven   string
 		errorMessage string
 	}{
@@ -250,7 +250,7 @@ func TestUpdatePost(t *testing.T) {
 			statusCode:   200,
 			title:        "Test update title",
 			content:      "Test update content",
-			author_id:    users[0].ID,
+			authorID:     users[0].ID,
 			tokenGiven:   tokenString,
 			errorMessage: "",
 		},
@@ -332,7 +332,7 @@ func TestUpdatePost(t *testing.T) {
 		if v.statusCode == 200 {
 			assert.Equal(t, responseMap["title"], v.title)
 			assert.Equal(t, responseMap["content"], v.content)
-			assert.Equal(t, responseMap["author_id"], float64(v.author_id))
+			assert.Equal(t, responseMap["author_id"], float64(v.authorID))
 		}
 		if v.statusCode == 401 || v.statusCode == 422 || v.statusCode == 500 && v.errorMessage != "" {
 			assert.Equal(t, responseMap["error"], v.errorMessage)
@@ -360,7 +360,7 @@ func TestDeletePost(t *testing.T) {
 
 	samples := []struct {
 		id           string
-		author_id    uint32
+		authorID     uint32
 		tokenGiven   string
 		statusCode   int
 		errorMessage string
@@ -368,34 +368,34 @@ func TestDeletePost(t *testing.T) {
 		{
 			id:           strconv.Itoa(int(posts[0].ID)),
 			statusCode:   401,
-			author_id:    users[0].ID,
+			authorID:     users[0].ID,
 			tokenGiven:   "",
 			errorMessage: "Unauthorized",
 		},
 		{
 			id:           strconv.Itoa(int(posts[0].ID)),
 			statusCode:   401,
-			author_id:    users[0].ID,
+			authorID:     users[0].ID,
 			tokenGiven:   "This is incorrect token",
 			errorMessage: "Unauthorized",
 		},
 		{
 			id:         "unknwon",
 			statusCode: 400,
-			author_id:  users[0].ID,
+			authorID:   users[0].ID,
 			tokenGiven: tokenString,
 		},
 		{
 			id:           strconv.Itoa(int(posts[1].ID)),
 			statusCode:   401,
-			author_id:    users[1].ID,
+			authorID:     users[1].ID,
 			tokenGiven:   tokenString,
 			errorMessage: "Unauthorized",
 		},
 		{
 			id:           strconv.Itoa(int(posts[0].ID)),
 			statusCode:   204,
-			author_id:    users[0].ID,
+			authorID:     users[0].ID,
 			tokenGiven:   tokenString,
 			errorMessage: "",
 		},
