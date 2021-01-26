@@ -4,7 +4,7 @@ services:
     container_name: blogiris_app_test
     build:
       context: .
-      dockerfile: ./Dockerfile.test
+      dockerfile: ./Dockerfile.fortest
     volumes:
       - api_test:/app/src/app/
     depends_on:
